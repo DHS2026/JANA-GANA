@@ -1,15 +1,73 @@
-[0:01] জনগণমন-অধিনায়ক জয় হে 
-[0:06] ভারতভাগ্যবিধাতা!
-[0:10] পঞ্জাব সিন্ধু গুজরাট মরাঠা 
-[0:15] দ্রাবিড় উৎকল বঙ্গ
-[0:19] বিন্ধ্য হিমাচল যমুনা গঙ্গা 
-[0:23] উচ্ছ্বলজলধিতরঙ্গ
-[0:28] তব শুভ নামে জাগে, 
-[0:32] তব শুভ আশিষ মাগে,
-[0:36] গাহে তব জয়গাথা।
-[0:41] জনগণমঙ্গলদায়ক জয় হে 
-[0:45] ভারতভাগ্যবিধাতা!
-[0:48] জয় হে, 
-[0:51] জয় হে, 
-[0:53] জয় হে, 
-[0:56] জয় জয় জয় জয় হে।।
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>জনগণমন</title>
+    <style>
+        body { margin: 0; padding: 20px; display: flex; justify-content: center; min-height: 100vh; background: linear-gradient(180deg, #FF9933 33.3%, #FFFFFF 33.3%, #FFFFFF 66.6%, #138808 66.6%); font-family: sans-serif; }
+        .container { text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.9); border-radius: 20px; box-shadow: 0 0 20px #FF9933, 0 0 20px #138808; border: 2px solid #fff; width: 100%; max-width: 400px; color: white; }
+        audio { width: 100%; margin-bottom: 20px; border-radius: 50px; background: white; }
+        .lyrics { height: 350px; overflow-y: hidden; border-top: 1px solid #FF9933; padding-top: 20px; font-size: 18px; line-height: 2.5; position: relative; }
+        .line { opacity: 0.6; transition: 0.3s; }
+        .active { color: #FF9933; font-weight: bold; transform: scale(1.1); opacity: 1; }
+        h2 {
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #FF9933, 0 0 40px #FF9933, 0 0 80px #FF9933;
+        }
+        .school-name { color: #FF9933; margin-top: -15px; margin-bottom: 20px; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>জনগণমন</h2>
+    <div class="school-name">DHAINAGAR HIGH SCHOOL (H.S.)</div>
+    
+    <audio id="audio" controls>
+        <!-- আপনার আপলোড করা অডিও ফাইলের নাম এখানে দিন -->
+        <source src="Jana%20gana.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="lyrics" id="lyricsBox">
+        <div id="content">
+            <p class="line" data-time="0">জনগণমন-অধিনায়ক জয় হে</p>
+            <p class="line" data-time="6">ভারতভাগ্যবিধাতা!</p>
+            <p class="line" data-time="10">পঞ্জাব সিন্ধু গুজরাট মরাঠা</p>
+            <p class="line" data-time="15">দ্রাবিড় উৎকল বঙ্গ</p>
+            <p class="line" data-time="19">বিন্ধ্য হিমাচল যমুনা গঙ্গা</p>
+            <p class="line" data-time="23">উচ্ছ্বলজলধিতরঙ্গ</p>
+            <p class="line" data-time="28">তব শুভ নামে জাগে,</p>
+            <p class="line" data-time="32">তব শুভ আশিষ মাগে,</p>
+            <p class="line" data-time="36">গাহে তব জয়গাথা।</p>
+            <p class="line" data-time="41">জনগণমঙ্গলদায়ক জয় হে</p>
+            <p class="line" data-time="45">ভারতভাগ্যবিধাতা!</p>
+            <p class="line" data-time="48">জয় হে,</p>
+            <p class="line" data-time="51">জয় হে,</p>
+            <p class="line" data-time="53">জয় হে,</p>
+            <p class="line" data-time="56">জয় জয় জয় জয় হে।।</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const audio = document.getElementById('audio');
+    const lines = document.querySelectorAll('.line');
+    const lyricsBox = document.getElementById('lyricsBox');
+
+    audio.addEventListener('timeupdate', () => {
+        lines.forEach((line, index) => {
+            const time = parseInt(line.dataset.time);
+            const nextTime = lines[index+1] ? parseInt(lines[index+1].dataset.time) : 999;
+            
+            if (audio.currentTime >= time && audio.currentTime < nextTime) {
+                lines.forEach(l => l.classList.remove('active'));
+                line.classList.add('active');
+                lyricsBox.scrollTop = line.offsetTop - 150;
+            }
+        });
+    });
+</script>
+</body>
+</html>
